@@ -19,10 +19,9 @@ Data1=inputRDD.map(lambda line: [float(x) for x in line.split(',')]).map(lambda 
 from time import time
 errors={}
 cfi = dict(zip(range(10,54),[2]*44))
-for depth in [16,17,18,19,20]:
+for depth in [15]:
     start=time()
     model=GradientBoostedTrees.trainClassifier(trainingData, categoricalFeaturesInfo=cfi,loss="logLoss",maxDepth=depth,numIterations=10,learningRate=0.5,maxBins=20)
-    #print model.toDebugString()#commented
     errors[depth]={}
     dataSets={'train':trainingData,'test':testData}
     for name in dataSets.keys():  # Calculate errors on train and test sets
@@ -31,4 +30,5 @@ for depth in [16,17,18,19,20]:
         LabelsAndPredictions=data.map(lambda lp:lp.label).zip(Predicted)
         Err = LabelsAndPredictions.filter(lambda (v,p):v != p).count()/float(data.count())
         errors[depth][name]=Err
-    print depth,errors[depth],int(time()-start),'seconds'
+    #print depth,errors[depth],int(time()-start),'seconds'
+    print depth,errors[depth]

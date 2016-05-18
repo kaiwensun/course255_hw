@@ -28,7 +28,8 @@ cfi = {}
 depth = 9
 lr = 0.3
 lossfunc = "logLoss"
-stopER = 0.27498
+#stopER = 0.27498
+stopER = 0.274
 testER = 1.0
 attemption = 0
 while testER>=stopER:
@@ -45,7 +46,8 @@ while testER>=stopER:
         if name=='test':
             if Err>=stopER:
                 attemption+=1
-                continue
+                break
             else:
                 testER = Err
-    print "depth=",depth,", lr=",lr,", lossfunc=",lossfunc,errors[depth],int(time()-start),'seconds',', attemption=',attemption
+print depth,errors[depth]
+    #print "depth=",depth,", lr=",lr,", lossfunc=",lossfunc,errors[depth],int(time()-start),'seconds',', attemption=',attemption
